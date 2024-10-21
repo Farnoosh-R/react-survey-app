@@ -3,6 +3,7 @@ body {
   font-family: "Lilita One", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 100px;
 }
 
 code {
@@ -12,6 +13,8 @@ code {
 
 :root{
   --primary: #b71540;
+  --primaryDark: #a10e35;
   --grey: #718093;
   --lighGrey: #dcdde1;
+  --titleMain: 50px;
 }

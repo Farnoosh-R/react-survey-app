@@ -1,0 +1,15 @@
+.Button{
+    border: none;
+    padding: 10px 40px;
+    border-radius: 4px;
+    transition-duration: 400ms;
+
+    &.Button--primary{
+        background: var(--primary);
+        color: #fff;
+
+        &:hover{
+            background: var(--primaryDark);
+        }
+    }
+}
