@@ -3,5 +3,30 @@
     .title-main{
         font-size: var(--titleMain);
         color: var(--primary);
+        position: relative;
+
+        &:after,&:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 64%;
+            height: 1px;
+            background-color: #E6E6E6;
+            width: 5em;
+            margin: 0 auto;
     }
+
+    &:after{
+        right: -98%;
+        background-image: -webkit-gradient(linear, left bottom, right bottom, color-stop(1.02, white), color-stop(0.5, gray), color-stop(0.98, white));
+    }
+
+    &:before{
+        right: 107%;
+        background-image: -webkit-gradient(linear, left bottom, right bottom, color-stop(-0.02, white), color-stop(0.5, gray), color-stop(-0.02, white));
+    }
+    }
+
+
+
 }
