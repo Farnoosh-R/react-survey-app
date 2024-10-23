@@ -1,61 +1,72 @@
 import React, { useEffect, useState } from "react";
 import "./style.scss";
-import Button from "../Button/Button";
+import {ButtonSubmit} from "../Button/Button";
+import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 
 
 const FormUserInfo = () => {
 
-    const [name, setName] = useState();
-    const [last, setLast] = useState();
-    const [email, setEmail] = useState();
-    const [phone, setPhone] = useState();
+    const [name, setName] = useState('');
+    const [last, setLast] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [validate, setValidate] = useState(false);
 
     const [userInfo, setUserInfo] = useState([]);
+    
+  useEffect(()=>{
+    console.log(' info:', userInfo);
+  },[userInfo])
 
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+    
+  }
 
   const handleChangeName = (e) => {
     setName(e);
-    return name;
   };
+
   const handleChangeLast = (e) => {
     setLast(e);
-    return last;
   };
+
   const handleChangeEmail = (e) => {
     setEmail(e);
-    return email;
+
   };
   const handleChangePhone = (e) => {
     setPhone(e);
-    return phone;
   };
 
-  
-
-
-  const handleSubmit = (e) => {
+const handleSubmit = (e) => {
     e.preventDefault();
     setUserInfo([
-    
         ...userInfo,
-      {
-        name: name,
-        last: last,
-        email: email,
-        phone: phone
-      },
-    ]);
-     
-    console.log(userInfo);
-    console.log(name);
+        { 
+            id: uuidv4(),
+            name,
+            last,
+            email,
+            phone
+         },
+      ]);
+      if (!validateEmail(email)){
+        setValidate(true)
+        return true
+    }else{
+        setValidate(false)
+    }
+      setEmail('')
+      setName('')
+      setLast('')
+      setPhone('')
+      
   };
-
-//   useEffect(() => {
-//     setData();
-//     console.log(userInfo);
-//   }, [])
-
 
 
   return (
@@ -64,11 +75,12 @@ const FormUserInfo = () => {
         <div className="row justify-content-center">
           <div className="col-md-4">
           <form onSubmit={handleSubmit}>
-              <input onChange={(e) => handleChangeName(e.target.value)} className="form-control" type="text" placeholder="Name" />
-              <input onChange={(e) => handleChangeLast(e.target.value)} className="form-control" type="text" placeholder="Last name" />
-              <input onChange={(e) => handleChangeEmail(e.target.value)} className="form-control" type="text" placeholder="Email" />
-              <input onChange={(e) => handleChangePhone(e.target.value)} className="form-control mb-5" type="text" placeholder="Phone" />
-              <Button title={"Next Step"} />
+              <input onChange={(e) => handleChangeName(e.target.value)} className="form-control" type="text" placeholder="Name" value={name}/>
+              <input onChange={(e) => handleChangeLast(e.target.value)} className="form-control" type="text" placeholder="Last name" value={last}/>
+              <input onChange={(e) => handleChangeEmail(e.target.value)} className="form-control" type="text" placeholder="Email" value={email}/>
+              {validate ? <span className="text-danger">please enter valid email</span> : ''}
+              <input onChange={(e) => handleChangePhone(e.target.value)} className="form-control mb-5" type="text" placeholder="Phone" value={phone}/>
+              <ButtonSubmit type="submit" title={"Next Step"} />
           </form>
           </div>
         </div>
